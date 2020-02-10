@@ -149,6 +149,7 @@ module.exports = (robot) ->
     # <keyword> whose score is to be shown
     displayName = msg.match[1]
     displayName = displayName.toLowerCase()
+    msg.send "#{displayName}"
     user = robot.brain.data.users.find((user) => user.profile.display_name == displayName);
     name = user.name
 
