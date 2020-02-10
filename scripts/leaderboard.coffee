@@ -101,7 +101,7 @@ module.exports = (robot) ->
 
 
   # listen for any [word](++/--) in chat and react/update score
-  robot.hear /[a-zA-Z0-9\-_]+(\-\-|\+\+)/gi, (msg) ->
+  robot.hear /@[a-zA-Z0-9\-_]+(\-\-|\+\+)/gi, (msg) ->
 
     # message for score update that bot will return
     oldmsg = msg.message.text
@@ -116,6 +116,7 @@ module.exports = (robot) ->
     # for each ++/--
     for i in [0...msg.match.length]
       testword = msg.match[i]
+      msg.send "#{testword}"
 
       # updates Scoring for words, accordingly and returns result string
       result = updateScore(testword, ScoreField, msg.message.user.name)
@@ -148,6 +149,15 @@ module.exports = (robot) ->
 
     text = msg.message.text
 
+    msg.send "text is #{text}"
+
+    textData = text.split(' ')
+    displayName = textData[2]
+
+    msg.send "something is #{displayName}"
+
+    displayName = displayName.substring(1)
+
     # <keyword> whose score is to be shown
     name = msg.match[1]
     name = name.toLowerCase()
@@ -155,10 +165,6 @@ module.exports = (robot) ->
     # current score for keyword
     ScoreField[name] = ScoreField[name] or 0
     currentscore = ScoreField[name]
-
-    textData = text.split(' ')
-    displayName = textData[2].substring(1)
-
 
     msg.send "#{displayName} : #{currentscore}"
 
