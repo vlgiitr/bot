@@ -90,7 +90,7 @@ module.exports = (robot) ->
         field[name.toLowerCase()] = lastScore(name, field) - 1
         userfield= userFieldMinus(name.toLowerCase())
         updateDetailedScore(userfield,username,"minus")
-        response= "ouch!"
+        response= "Ouch!"
 
     newscore = field[name.toLowerCase()]
 
@@ -105,7 +105,6 @@ module.exports = (robot) ->
 
     # message for score update that bot will return
     oldmsg = msg.message.text
-    msg.send "original message was #{oldmsg}"
 
     # data-store object
     ScoreField = scorefield()
@@ -117,7 +116,6 @@ module.exports = (robot) ->
     # for each ++/--
     for i in [0...msg.match.length]
       testword = msg.match[i]
-      msg.send "group is #{testword}"
 
       # updates Scoring for words, accordingly and returns result string
       result = updateScore(testword, ScoreField, msg.message.user.name)
@@ -129,7 +127,7 @@ module.exports = (robot) ->
       if result.Response == "-1"
         newmsg = "Sorry, You can't give ++ or -- to yourself."
       else
-        newmsg = "#{result.Response} #{result.Name} now at #{result.New} "
+        newmsg = "#{result.Response} #{result.Name} now at #{result.New}!"
       oldmsg = newmsg
       start += newmsg.length
 
@@ -151,16 +149,18 @@ module.exports = (robot) ->
     text = msg.message.text
 
     # <keyword> whose score is to be shown
-    msg.send "text is #{text}"
-
-    displayName = msg.match[1]
-    name = displayName.toLowerCase()
+    name = msg.match[1]
+    name = name.toLowerCase()
 
     # current score for keyword
     ScoreField[name] = ScoreField[name] or 0
     currentscore = ScoreField[name]
 
-    msg.send "#{name} : #{currentscore}"
+    textData = text.split(' ')
+    displayName = textData[2].substring(1)
+
+
+    msg.send "#{displayName} : #{currentscore}"
 
   robot.on 'plusplus', (event) ->
     ScoreField = scorefield()
@@ -169,11 +169,11 @@ module.exports = (robot) ->
     robot.send room: 'general', newmsg
 
 responses = [
-  'flamboyant!'
-  'baroque!'
-  'impressive!'
-  'lustrous!'
-  'splashy!'
-  'superb!'
-  'splendid!'
+  'Flamboyant!'
+  'Baroque!'
+  'Impressive!'
+  'Lustrous!'
+  'Splashy!'
+  'Superb!'
+  'Splendid!'
 ]
