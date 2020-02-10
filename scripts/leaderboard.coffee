@@ -105,6 +105,7 @@ module.exports = (robot) ->
 
     # message for score update that bot will return
     oldmsg = msg.message.text
+    msg.send "original message was #{oldmsg}"
 
     # data-store object
     ScoreField = scorefield()
@@ -116,6 +117,7 @@ module.exports = (robot) ->
     # for each ++/--
     for i in [0...msg.match.length]
       testword = msg.match[i]
+      msg.send "group is #{testword}"
 
       # updates Scoring for words, accordingly and returns result string
       result = updateScore(testword, ScoreField, msg.message.user.name)
@@ -136,7 +138,7 @@ module.exports = (robot) ->
 
 
   # response for score status of any <keyword>
-  robot.hear /score ([\w\-_]+)/i, (msg) ->
+  robot.respond /score ([\w\-_]+)/i, (msg) ->
 
     # we do not want to reply in case of batch score is requested
     jxx = /j\d\d/i
@@ -146,7 +148,11 @@ module.exports = (robot) ->
     # data-store object
     ScoreField = scorefield()
 
+    text = msg.message.text
+
     # <keyword> whose score is to be shown
+    msg.send "text is #{text}"
+
     displayName = msg.match[1]
     name = displayName.toLowerCase()
 
