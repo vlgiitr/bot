@@ -136,7 +136,7 @@ module.exports = (robot) ->
 
 
   # response for score status of any <keyword>
-  robot.respond /score ([\w\-_]+)/i, (msg) ->
+  robot.hear /score ([\w\-_]+)/i, (msg) ->
 
     # we do not want to reply in case of batch score is requested
     jxx = /j\d\d/i
@@ -148,10 +148,7 @@ module.exports = (robot) ->
 
     # <keyword> whose score is to be shown
     displayName = msg.match[1]
-    displayName = displayName.toLowerCase()
-    msg.send "#{displayName}"
-    user = robot.brain.data.users.find((user) => user.profile.display_name == displayName);
-    name = user.name
+    name = displayName.toLowerCase()
 
     # current score for keyword
     ScoreField[name] = ScoreField[name] or 0
