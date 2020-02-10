@@ -115,7 +115,7 @@ module.exports = (robot) ->
 
     # for each ++/--
     for i in [0...msg.match.length]
-      testword = msg.match[i]
+      testword = msg.match[i].substring(1)
       msg.send "#{testword}"
 
       # updates Scoring for words, accordingly and returns result string
@@ -155,8 +155,6 @@ module.exports = (robot) ->
     displayName = textData[2]
 
     msg.send "something is #{displayName}"
-
-    displayName = displayName.substring(1)
 
     # <keyword> whose score is to be shown
     name = msg.match[1]
