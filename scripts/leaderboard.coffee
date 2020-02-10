@@ -125,10 +125,10 @@ module.exports = (robot) ->
 
       # generates response message for reply
       if result.Response == "-1"
-        newmsg = "#{testword} [Sorry, You can't give ++ or -- to yourself.]"
+        newmsg = "Sorry, You can't give ++ or -- to yourself."
       else
-        newmsg = "#{testword} [#{result.Response} #{result.Name} now at #{result.New}] "
-      oldmsg = oldmsg.substr(0, start) + newmsg + oldmsg.substr(end+1)
+        newmsg = "#{result.Response} #{result.Name} now at #{result.New} "
+      oldmsg = newmsg
       start += newmsg.length
 
     # reply with updated message
@@ -139,16 +139,18 @@ module.exports = (robot) ->
   robot.respond /score ([\w\-_]+)/i, (msg) ->
 
     # we do not want to reply in case of batch score is requested
-    bxx = /b\d\d/i
-    if bxx.exec(msg.match[0]) != null
+    jxx = /j\d\d/i
+    if jxx.exec(msg.match[0]) != null
     then return
 
     # data-store object
     ScoreField = scorefield()
 
     # <keyword> whose score is to be shown
-    name = msg.match[1]
-    name = name.toLowerCase()
+    displayName = msg.match[1]
+    displayName = displayName.toLowerCase()
+    user = robot.brain.data.users.find((user) => user.profile.display_name == displayName);
+    name = user.name
 
     # current score for keyword
     ScoreField[name] = ScoreField[name] or 0
