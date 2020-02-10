@@ -138,7 +138,7 @@ module.exports = (robot) ->
 
 
   # response for score status of any <keyword>
-  robot.respond /score ([\w\-_]+)/i, (msg) ->
+  robot.respond /score @([\w\-_]+)/i, (msg) ->
 
     # we do not want to reply in case of batch score is requested
     jxx = /j\d\d/i
