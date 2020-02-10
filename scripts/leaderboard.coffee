@@ -116,7 +116,6 @@ module.exports = (robot) ->
     # for each ++/--
     for i in [0...msg.match.length]
       testword = msg.match[i].substring(1)
-      msg.send "#{testword}"
 
       # updates Scoring for words, accordingly and returns result string
       result = updateScore(testword, ScoreField, msg.message.user.name)
@@ -149,12 +148,8 @@ module.exports = (robot) ->
 
     text = msg.message.text
 
-    msg.send "text is #{text}"
-
     textData = text.split(' ')
     displayName = textData[2]
-
-    msg.send "something is #{displayName}"
 
     # <keyword> whose score is to be shown
     name = msg.match[1]

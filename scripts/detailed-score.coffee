@@ -5,7 +5,7 @@
 #   bot detailed score name
 
 module.exports = (robot) ->
-	robot.respond /detailed score ([\w\-_]+)/i, (msg) ->
+	robot.respond /detailed score @([\w\-_]+)/i, (msg) ->
 		# <keyword> whose score is to be shown
 			name = msg.match[1]
 			name = name.toLowerCase()
