@@ -5,7 +5,7 @@
 #   INFO_SPREADSHEET_URL
 #
 # Commands:
-#   hubot score bxx
+#   hubot score jxx
 
 
 module.exports = (robot) ->
@@ -59,7 +59,7 @@ module.exports = (robot) ->
     else
       false
 
-  robot.respond /score b(\d\d)/i, (msg) ->
+  robot.respond /score j(\d\d)/i, (msg) ->
 
     ScoreField = scorefield()
 
@@ -69,9 +69,9 @@ module.exports = (robot) ->
     yyyy = today.getFullYear()
     yy = `yyyy % 100`
     if `mm < 7`
-      `relative_year = yy + 4`
+      `relative_year = yy`
     else
-      `relative_year = yy + 5`
+      `relative_year = yy + 1`
 
     # <batch> whose score is to be shown
     batch = msg.match[1]
@@ -89,7 +89,7 @@ module.exports = (robot) ->
         slackId = []
         slackId.push ["Score"]
         for user in result
-          user_year = user[4].split('')
+          user_year = user[5].split('')
           year_info = parseInt(user_year[0], 10 );
           if `year_info == year`
             if user[10]

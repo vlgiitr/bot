@@ -32,7 +32,7 @@ module.exports = (robot) ->
                   "title": user[0]
                   "title_link": "https://facebook.com/#{user[10]}"
                   "text": "Github: <https://github.com/#{user[9]}|#{user[9]}>"+
-                  "\nRoom no: #{user[8]}"
+                  "\nRoom No: #{user[8]}"
                   "fields": [
                       "title": "Mobile #1"
                       "value": "<tel:#{user[1]}|#{user[1]}>"
