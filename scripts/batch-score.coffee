@@ -80,7 +80,7 @@ module.exports = (robot) ->
         slackId = []
         slackId.push ["Score"]
         for user in result
-          user_year = user[7].substring(0,2)
+          user_year = user[7].substring(0,3)
           year_info = parseInt(user_year[0], 10 )
 
           msg.send "#{year_info}"
