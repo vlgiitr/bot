@@ -78,9 +78,8 @@ module.exports = (robot) ->
         slackId = []
         slackId.push ["Score"]
         for user in result
-          user_year = user[7].split('')
+          user_year = user[7].substring(0,2)
           year_info = parseInt(user_year[0], 10 );
-          year_parsed = Math.floor(year_info/1000000);
           if `year_parsed == batch`
             if user[10]
               slackId.push [user[10]]
