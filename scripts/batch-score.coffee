@@ -66,6 +66,8 @@ module.exports = (robot) ->
     # <batch> whose score is to be shown
     batch = msg.match[1]
 
+    msg.send "batch is #{batch}"
+
     robot.http(process.env.INFO_SPREADSHEET_URL)
       .query({
         output: "csv"
@@ -80,8 +82,14 @@ module.exports = (robot) ->
         for user in result
           user_year = user[7].substring(0,2)
           year_info = parseInt(user_year[0], 10 )
+
+          msg.send "year_info"
+
           if `year_info == batch`
+            msg.send "inside with #{year_info}"
             if user[10]
+              msg.send user[10]
+              msg.send user[0]
               slackId.push [user[10]]
               user_name.push [user[0]]
 
