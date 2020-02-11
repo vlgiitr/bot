@@ -63,19 +63,8 @@ module.exports = (robot) ->
 
     ScoreField = scorefield()
 
-    # obtaining the current date to calculate relative_year
-    today = new Date
-    mm = today.getMonth() + 1
-    yyyy = today.getFullYear()
-    yy = `yyyy % 100`
-    if `mm < 7`
-      `relative_year = yy`
-    else
-      `relative_year = yy + 1`
-
     # <batch> whose score is to be shown
     batch = msg.match[1]
-    year = relative_year - batch
 
     robot.http(process.env.INFO_SPREADSHEET_URL)
       .query({
@@ -89,9 +78,10 @@ module.exports = (robot) ->
         slackId = []
         slackId.push ["Score"]
         for user in result
-          user_year = user[5].split('')
+          user_year = user[7].split('')
           year_info = parseInt(user_year[0], 10 );
-          if `year_info == year`
+          year_parsed = Math.floor(year_info/1000000);
+          if `year_parsed == batch`
             if user[10]
               slackId.push [user[10]]
               user_name.push [user[0]]
@@ -99,7 +89,12 @@ module.exports = (robot) ->
         user_score = []
 
         for i in [1..slackId.length - 1]
-          user_score[i] = ScoreField[slackId[i]] or 0
+          user_from_database = robot.brain.data.users.find((user) => user.profile.display_name == slackId[i])
+          user_actual_name = user_from_database.name
+
+          msg.send user_actual_name
+
+          user_score[i] = ScoreField[user_actual_name] or 0
 
         user_name = padright user_name
         user_score = padleft user_score
