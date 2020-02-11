@@ -83,7 +83,7 @@ module.exports = (robot) ->
           user_year = user[7].substring(0,2)
           year_info = parseInt(user_year[0], 10 )
 
-          msg.send "year_info"
+          msg.send "#{year_info}"
 
           if `year_info == batch`
             msg.send "inside with #{year_info}"
