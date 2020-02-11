@@ -25,7 +25,7 @@ module.exports = (robot) ->
           msg.send result.length+" user(s) found matching `"+query.toString()+"`"
           for user in result
             if user[4] == ''
-              msg.send "#{user[0]} bro add karde yrr!"
+              msg.send "#{user[0]} bro birthday add karde yrr!"
             else
               msg.send "Wish #{user[0]} on #{moment(user[4], 'DD/MM/YYYY').format("MMM Do, YYYY")}!"
 
