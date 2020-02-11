@@ -89,12 +89,7 @@ module.exports = (robot) ->
         user_score = []
 
         for i in [1..slackId.length - 1]
-          user_from_database = robot.brain.data.users.find((user) => user.profile.display_name == slackId[i])
-          user_actual_name = user_from_database.name
-
-          msg.send user_actual_name
-
-          user_score[i] = ScoreField[user_actual_name] or 0
+          user_score[i] = ScoreField[slackId[i]] or 0
 
         user_name = padright user_name
         user_score = padleft user_score
